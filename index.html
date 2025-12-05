@@ -6,7 +6,73 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Min Masterplan</h1>
-  <script src="script.js"></script>
+  <h1>Master Plannerare</h1>
+
+  <!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Välj program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+        }
+
+        /* Rutan runt dropdownen */
+        .dropdown-container {
+            border: 2px solid #333;  /* Svart ram, byt färg om du vill */
+            border-radius: 10px;     /* Runda hörn */
+            padding: 20px;
+            width: 350px;
+            background-color: #f9f9f9; /* Ljus bakgrund */
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%; /* Fyll hela rutan */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            appearance: none;
+            background: url('data:image/svg+xml;utf8,<svg fill="black" height="10" viewBox="0 0 10 10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l5 5 5-5z"/></svg>') no-repeat right 10px center;
+            background-color: white;
+            background-size: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+                 
+    <div class="dropdown-container"> 
+        <label for="program">Välj ditt program:</label>
+        <select id="program">
+            <option value="">-- Välj program --</option>
+            <option value="datateknik">Datateknik</option>
+            <option value="design- och produktutveckling">Design- och produktutveckling</option>
+            <option value="byggteknik">Elektronik och Systemdesign</option>
+            <option value="energi - miljö - management">Energi - Miljö - Management</option> 
+            <option value="industriell ekonomi">Industriell ekonomi</option>
+            <option value="informationsteknologi">Informationsteknologi</option>
+            <option value="kemisk biologi">Kemisk biologi</option>
+            <option value="maskinteknik">Maskinteknik</option>
+            <option value="medicinsk teknik">Medicinsk teknik</option>
+            <option value="medieteknik och ai">Medieteknik och AI</option>
+            <option value="mjukvaruteknik">Mjukvaruteknik</option>
+            <option value="samhällsbyggnad och logistik">Samhällsbyggnad och Logistik</option>
+            <option value="strategisk systemanalys">Strategisk systemanalys</option>
+            <option value="elektroteknik">Teknisk fysik och Elektroteknik</option>
+             
+              
+            <!-- Lägg till alla masterprogram här -->
+        </select>
+    </div>
+
 </body>
 </html>
+
