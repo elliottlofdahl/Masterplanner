@@ -1,35 +1,96 @@
+/* ======= GRUNDLÄGGANDE ======= */
 body {
   font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff; /*hela bakgrunden*/
-    color: #ece6e6; /*"Välj ditt program*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-    color: #000000; /*"Plannera din master*/
-    margin-top: 30px;
+  margin-top: 20px;
 }
-/* */
-.box {
-    background-color: rgb(0, 0, 0);
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: center;
-}
-.text-ruta {
-  background: white;
-  padding: 24px;
-  max-width: 400px;
+
+/* ======= INFO-RUTA ======= */
+.info-box {
+  background-color: #f5f5f5;
+  color: #000;
+  padding: 20px 24px;
+  margin: 20px 0 30px;
+  max-width: 800px;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ======= SIDLAYOUT ======= */
+.page-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 1100px;
+}
+
+.course-column {
+  flex: 2;
+}
+
+.side-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ======= TABELL ======= */
+.kurs-tabell {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #cfeef8;
+  font-size: 14px;
+}
+
+.kurs-tabell th,
+.kurs-tabell td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #aaa;
+}
+
+.kurs-tabell thead th {
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  text-align: left;
+}
+
+.kurs-tabell tbody tr {
+  cursor: pointer;
+}
+
+.kurs-tabell tbody tr:hover {
+  background-color: #e5f7ff;
+}
+
+.kurs-tabell tbody tr.vald {
+  background-color: #ffe9a8;
+}
+
+/* ======= KRAV & DIN LISTA ======= */
+.krav-ruta,
+.din-lista-ruta {
+  background-color: #f5f5f5;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 2px solid #333;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.krav-ruta h3,
+.din-lista-ruta h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
 
+.din-lista-ruta ul {
+  list-st

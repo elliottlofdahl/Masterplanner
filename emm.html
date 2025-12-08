@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Energi – Miljö – Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>Energi – Miljö – Management</h1>
+
+  <div class="info-box">
+    <p>
+      Här kan du planera din master för Energi – Miljö – Management. 
+      Välj kurser i listan till vänster. De kurser du klickar på hamnar i "Din lista" till höger.
+    </p>
+  </div>
+
+  <div class="page-container">
+
+    <!-- Vänster: kurslista -->
+    <div class="course-column">
+      <h2>Termin 7 – preliminära kurser</h2>
+      <p class="small-hint">
+        Klicka på en kursrad för att lägga till eller ta bort den från din lista.
+      </p>
+
+      <table class="kurs-tabell">
+        <thead>
+          <tr>
+            <th>Kurskod</th>
+            <th>Kursnamn</th>
+            <th>Hp</th>
+            <th>Nivå</th>
+            <th>Block</th>
+            <th>VOF</th>
+          </tr>
+        </thead>
+        <tbody id="kurs-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Höger: krav + din lista -->
+    <div class="side-column">
+      <div class="krav-ruta">
+        <h3>Krav</h3>
+        <p>HP GRUND: <span id="hp-grund">EJ OK</span></p>
+        <p>HP AVANCERAD: <span id="hp-avancerad">EJ OK</span></p>
+        <p>BLOCK: <span id="block">EJ OK</span></p>
+      </div>
+
+      <div class="din-lista-ruta">
+        <h3>Din lista</h3>
+        <ul id="din-lista"></ul>
+        <p class="small-hint" id="din-lista-hint">
+          Du har inte valt några kurser ännu.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Ladda JavaScript sist -->
+  <script src="script.js"></script>
+
+</body>
+</html>

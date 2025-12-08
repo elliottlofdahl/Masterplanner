@@ -1,75 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
   <meta charset="UTF-8">
   <title>Masterplan</title>
   <link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
 </head>
 <body>
   <h1>Plannera Din Master</h1>
 
-  <!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <title>Välj program</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 10px;
-        }
+  <div class="info-box">
+    <h2>Så fungerar Masterplanneraren</h2>
+    <p>
+      På denna sida kan du planera din master vid Linköpings universitet.
+      Börja med att välja ditt civilingenjörsprogram i listan nedan.
+    </p>
+    <p>
+      När du valt ditt program kommer du att välja mellan dina möjliga inriktningar.
+      Efter det kan du välja kurser för varje termin i din master och din obligatoriska kurs kommer automatiskt tilldelas.
+    </p>
+  </div>
 
-        /* Rutan runt dropdownen */
-        .dropdown-container {
-            border: 2px solid #333;  /* Svart ram, byt färg om du vill */
-            border-radius: 10px;     /* Runda hörn */
-            padding: 20px;
-            width: 350px;
-            background-color: #b7aeae; /* Ljus bakgrund */
-        }
-
-        select {
-            padding: 10px;
-            font-size: 16px;
-            width: 100%; /* Fyll hela rutan */
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            appearance: none;
-            background: url('data:image/svg+xml;utf8,<svg fill="black" height="10" viewBox="0 0 10 10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M0 0l5 5 5-5z"/></svg>') no-repeat right 10px center;
-            background-color: rgb(255, 255, 255);
-            background-size: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-    </style>
-</head>
-<body>
-     <div class="dropdown-container"> 
-          <label for="program">Välj ditt program:</label>
-          <select id="program">
-              <option value="datateknik">Datateknik</option>
-              <option value="dpu">Design- och produktutveckling</option>
-              <option value="elsy">Elektronik och Systemdesign</option>
-              <option value="emm">Energi - Miljö - Management</option>
-              <option value="indek">Industriell ekonomi</option>
-              <option value="it">Informationsteknologi</option>
-              <option value="kb">Kemisk biologi</option>
-              <option value="mt">Maskinteknik</option>
-              <option value="medtek">Medicinsk teknik</option>
-              <option value="media">Medieteknik och AI</option>
-              <option value="mjukvara">Mjukvaruteknik</option>
-              <option value="sambygg">Samhällsbyggnad och Logistik</option>
-              <option value="stratsysana">Strategisk systemanalys</option>
-              <option value="tb">Teknisk biologi</option>
-              <option value="tekfys">Teknisk fysik och Elektroteknik</option>
-              <option value="tekmat">Teknisk matematik</option>
-            
-            </select>
-    </div>
+  <div class="dropdown-container"> 
+    <label for="program">Välj ditt program:</label>
+    <select id="program" onchange="location = this.value;">
+      <option value="">-- Välj program --</option>
+      <option value="datateknik.html">Datateknik</option>
+      <option value="dpu.html">Design- och produktutveckling</option>
+      <option value="elsy.html">Elektronik och Systemdesign</option>
+      <option value="emm.html">Energi - Miljö - Management</option>
+      <option value="indek.html">Industriell ekonomi</option>
+      <option value="it.html">Informationsteknologi</option>
+      <option value="kb.html">Kemisk biologi</option>
+      <option value="mt.html">Maskinteknik</option>
+      <option value="medtek.html">Medicinsk teknik</option>
+      <option value="media.html">Medieteknik och AI</option>
+      <option value="mjukvara.html">Mjukvaruteknik</option>
+      <option value="sambygg.html">Samhällsbyggnad och Logistik</option>
+      <option value="stratsysana.html">Strategisk systemanalys</option>
+      <option value="tb.html">Teknisk biologi</option>
+      <option value="tekfys.html">Teknisk fysik och Elektroteknik</option>
+      <option value="tekmat.html">Teknisk matematik</option>
+    </select>
+  </div>
 </body>
 </html>
-
