@@ -8,6 +8,8 @@
 
 <body>
 
+  <a href="index.html" class="back-button" aria-label="Tillbaka till startsidan">Tillbaka</a>
+
   <h1>Energi – Miljö – Management</h1>
 
   <div class="info-box">
@@ -21,24 +23,38 @@
 
     <!-- Vänster: kurslista -->
     <div class="course-column">
-      <h2>Termin 7 – preliminära kurser</h2>
+      <h2>Kurser per termin</h2>
+      <div class="programplan-filter">
+        <div class="filter-group">
+          <label for="inriktning">Inriktning</label>
+          <select id="inriktning">
+            <option value="" selected>Välj inriktning</option>
+            <option value="EMHF">Hållbart företagande</option>
+            <option value="EMSV">Systemverktyg för hållbar utveckling</option>
+            <option value="EMTE">Teknik för hållbar utveckling</option>
+          </select>
+        </div>
+        <div class="filter-group vof-filter">
+          <span>VOF</span>
+          <label>
+            <input type="checkbox" value="V" checked>
+            Valbar (V)
+          </label>
+          <label>
+            <input type="checkbox" value="O" checked>
+            Obligatorisk (O)
+          </label>
+          <label>
+            <input type="checkbox" value="F" checked>
+            Frivillig (F)
+          </label>
+        </div>
+      </div>
       <p class="small-hint">
-        Klicka på en kursrad för att lägga till eller ta bort den från din lista.
+        Klicka på en kurs för att lägga till eller ta bort den från din lista.
       </p>
 
-      <table class="kurs-tabell">
-        <thead>
-          <tr>
-            <th>Kurskod</th>
-            <th>Kursnamn</th>
-            <th>Hp</th>
-            <th>Nivå</th>
-            <th>Block</th>
-            <th>VOF</th>
-          </tr>
-        </thead>
-        <tbody id="kurs-tbody"></tbody>
-      </table>
+      <div id="course-container"></div>
     </div>
 
     <!-- Höger: krav + din lista -->
@@ -51,7 +67,12 @@
       </div>
 
       <div class="din-lista-ruta">
-        <h3>Din lista</h3>
+        <div class="din-lista-header">
+          <h3>Din lista</h3>
+          <button id="din-lista-toggle" type="button" class="toggle-btn" aria-expanded="false">
+            Visa mer
+          </button>
+        </div>
         <ul id="din-lista"></ul>
         <p class="small-hint" id="din-lista-hint">
           Du har inte valt några kurser ännu.

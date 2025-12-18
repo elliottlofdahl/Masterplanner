@@ -1,3 +1,16 @@
+:root {
+  --bg-0: #07090c;
+  --bg-1: #0b0f14;
+  --panel: rgba(14, 18, 26, 0.75);
+  --panel-strong: rgba(16, 22, 32, 0.95);
+  --line: rgba(120, 150, 190, 0.25);
+  --text: #e8f0ff;
+  --muted: #a8b3c7;
+  --accent: #63e6ff;
+  --accent-2: #7cffc4;
+  --warn: #ffd166;
+}
+
 /* ======= GRUNDLÄGGANDE ======= */
 body {
   font-family: Arial, sans-serif;
@@ -12,6 +25,20 @@ body {
 
 h1 {
   margin-top: 20px;
+}
+
+.back-button {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--accent);
+  font-size: 13px;
+  z-index: 2;
 }
 
 /* ======= INFO-RUTA ======= */
@@ -37,11 +64,56 @@ h1 {
   flex: 2;
 }
 
+.programplan-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: flex-end;
+  padding: 12px 14px;
+  background-color: #f3f3f3;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  margin: 6px 0 14px;
+  width: 100%;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #777;
+  background-color: #fff;
+  min-width: 220px;
+}
+
+.vof-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.vof-filter span {
+  font-weight: bold;
+}
+
+.vof-filter label {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .side-column {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: flex 200ms ease;
 }
 
 /* ======= TABELL ======= */
@@ -93,4 +165,250 @@ h1 {
 }
 
 .din-lista-ruta ul {
-  list-st
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 10px 0 0;
+}
+
+.din-lista-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.toggle-btn {
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.din-lista-ruta.expanded {
+  min-width: 360px;
+}
+
+.side-column.expanded {
+  flex: 1.6;
+}
+
+.course-column.shrunk {
+  flex: 1.4;
+}
+
+.din-lista-group {
+  margin: 10px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(10, 14, 20, 0.6);
+}
+
+.din-lista-group h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--accent-2);
+}
+
+.din-lista-group ul {
+  list-style: disc;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.din-lista-detalj {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ======= TERMINSEKTIONER ======= */
+.termin-sektion {
+  width: 100%;
+  margin: 10px 0 24px;
+}
+
+.accordion {
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.accordion__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: #e7eef2;
+  cursor: pointer;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+.term-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.accordion__toggle {
+  border: 1px solid #666;
+  border-radius: 6px;
+  background: #fff;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.accordion__content {
+  padding: 12px 14px 16px;
+}
+
+.subheading {
+  margin: 8px 0 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.period-heading {
+  margin: 10px 0 6px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+
+.empty-hint {
+  margin: 10px 0;
+  color: #444;
+  font-style: italic;
+}
+
+/* ======= FUTURISTIC THEME OVERRIDES ======= */
+body {
+  font-family: "Segoe UI", "Verdana", "Tahoma", sans-serif;
+  background-color: var(--bg-0);
+  color: var(--text);
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(99, 230, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(124, 255, 196, 0.14), transparent 60%),
+    linear-gradient(180deg, #06080b 0%, #0b1018 60%, #0a0f16 100%);
+  z-index: -1;
+}
+
+h1 {
+  font-family: "Segoe UI Semibold", "Segoe UI", "Verdana", sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.info-box {
+  background-color: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.page-container {
+  width: 100%;
+}
+
+.programplan-filter {
+  background-color: rgba(16, 22, 32, 0.7);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  color: var(--text);
+}
+
+.filter-group select {
+  background-color: rgba(8, 12, 18, 0.9);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.vof-filter span {
+  color: var(--accent);
+}
+
+.vof-filter label {
+  color: var(--muted);
+}
+
+.kurs-tabell {
+  background-color: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.kurs-tabell th,
+.kurs-tabell td {
+  border-bottom: 1px solid var(--line);
+}
+
+.kurs-tabell thead th {
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
+  background-color: rgba(20, 28, 40, 0.9);
+}
+
+.kurs-tabell tbody tr:hover {
+  background-color: rgba(99, 230, 255, 0.12);
+}
+
+.kurs-tabell tbody tr.vald {
+  background-color: rgba(255, 209, 102, 0.2);
+}
+
+.krav-ruta,
+.din-lista-ruta {
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.accordion {
+  border: 1px solid var(--line);
+  background-color: var(--panel-strong);
+}
+
+.accordion__head {
+  background-color: rgba(14, 22, 34, 0.9);
+  border-bottom: 1px solid var(--line);
+}
+
+.term-title {
+  color: var(--text);
+}
+
+.accordion__toggle {
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--accent);
+}
+
+.subheading {
+  color: var(--accent-2);
+}
+
+.period-heading {
+  color: var(--muted);
+}
+
+.empty-hint {
+  color: var(--muted);
+}
