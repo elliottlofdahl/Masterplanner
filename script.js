@@ -1289,7 +1289,100 @@ const kurser = [
   }
 ];
 
-
+// Huvudområde per kurskod (hämtat från studieinfo.liu.se)
+const huvudomradeMap = {
+  TDDE18: "Datateknik, Datavetenskap",
+  TDDE56: "Datateknik, Datavetenskap",
+  TEIE72: "Industriell ekonomi",
+  TEIM11: "Industriell ekonomi",
+  TEIO19: "Industriell ekonomi",
+  TEIO90: "Industriell ekonomi",
+  TETS58: "Industriell ekonomi",
+  TFYA43: "Teknisk fysik, Fysik, Materialvetenskap och materialteknik",
+  TGTU91: "Inget huvudområde",
+  TINT01: "Inget huvudområde",
+  TKMJ38: "Energi- och miljöteknik",
+  TMES27: "Energi- och miljöteknik, Maskinteknik",
+  TMHP02: "Maskinteknik",
+  TMKA09: "Design",
+  TMKM16: "Energi- och miljöteknik, Produktutveckling, Maskinteknik",
+  TMKT78: "Produktutveckling, Maskinteknik",
+  TMKT80: "Produktutveckling, Maskinteknik",
+  TMME67: "Maskinteknik",
+  TMMV01: "Flygteknik, Maskinteknik",
+  TSRT06: "Elektroteknik, Maskinteknik",
+  TSTE28: "Elektroteknik",
+  TAOP63: "Matematik, Tillämpad matematik",
+  TATA71: "Matematik, Tillämpad matematik",
+  TEAE09: "Inget huvudområde",
+  TEAE18: "Industriell ekonomi",
+  TEIG03: "Industriell ekonomi",
+  TETS27: "Industriell ekonomi",
+  TGTU49: "Inget huvudområde",
+  TKMJ39: "Maskinteknik",
+  TMES45: "Energi- och miljöteknik, Maskinteknik",
+  TMES51: "Energi- och miljöteknik, Industriell ekonomi",
+  TMKO05: "Maskinteknik",
+  TMME28: "Maskinteknik",
+  TMMV62: "Energi- och miljöteknik, Maskinteknik",
+  TMPR01: "Produktutveckling, Maskinteknik",
+  TSIU02: "Elektroteknik",
+  TSTE26: "Elektroteknik",
+  TDDE10: "Datateknik",
+  TDDE50: "Inget huvudområde",
+  TEIE06: "Industriell ekonomi",
+  TEIM09: "Industriell ekonomi",
+  TEIO13: "Industriell ekonomi",
+  TETS57: "Industriell ekonomi",
+  TGTU59: "Energi- och miljöteknik",
+  TGTU94: "Inget huvudområde",
+  TINT02: "Inget huvudområde",
+  TKMJ47: "Energi- och miljöteknik, Maskinteknik",
+  TMES41: "Energi- och miljöteknik",
+  TMES53: "Energi- och miljöteknik, Industriell ekonomi",
+  TMHL22: "Maskinteknik",
+  TMKA10: "Design",
+  TMKA13: "Produktutveckling, Maskinteknik",
+  TMKO01: "Energi- och miljöteknik, Maskinteknik",
+  TMMV08: "Flygteknik, Maskinteknik",
+  TMQU31: "Industriell ekonomi",
+  TSFS04: "Elektroteknik",
+  TSRT07: "Elektroteknik",
+  TDDD12: "Datateknik, Programmering",
+  TEAE13: "Inget huvudområde",
+  TEIO06: "Industriell ekonomi",
+  TEIO41: "Industriell ekonomi",
+  TETS36: "Industriell ekonomi",
+  TGTU84: "Inget huvudområde",
+  TGTU95: "Inget huvudområde",
+  TKMJ50: "Industriell ekonomi",
+  TMES43: "Energi- och miljöteknik",
+  TMKO03: "Flygteknik, Maskinteknik",
+  TMKO06: "Produktutveckling, Maskinteknik",
+  TMKT83: "Energi- och miljöteknik, Maskinteknik",
+  TMMV07: "Flygteknik, Maskinteknik",
+  TMQU04: "Industriell ekonomi",
+  TRTE21: "Inget huvudområde",
+  TSFS03: "Elektroteknik, Maskinteknik",
+  TKMJ31: "Energi- och miljöteknik, Maskinteknik",
+  TKMJ48: "Energi- och miljöteknik",
+  TKMJ56: "Industriell ekonomi",
+  TKMJ59: "Energi- och miljöteknik, Industriell ekonomi",
+  TMES52: "Energi- och miljöteknik",
+  TMMV12: "Flygteknik, Energi- och miljöteknik, Maskinteknik",
+  TMMV18: "Flygteknik, Energi- och miljöteknik, Maskinteknik",
+  TMMV59: "Flygteknik, Maskinteknik",
+  TMPE07: "Energi- och miljöteknik",
+  TMPM11: "Maskinteknik",
+  TMPR03: "Maskinteknik",
+  TSFS09: "Elektroteknik, Maskinteknik",
+  TSFS23: "Maskinteknik",
+  TEIE42: "Industriell ekonomi",
+  TETS31: "Industriell ekonomi",
+  TMKA11: "Maskinteknik",
+  TMQU12: "Industriell ekonomi",
+  TQXX33: "se beslutade huvudområden"
+};
 
 // ======= REFERENSER TILL HTML =======
 const courseContainer = document.getElementById("course-container");
@@ -1300,6 +1393,15 @@ const dinListaToggle = document.getElementById("din-lista-toggle");
 const sideColumn = document.querySelector(".side-column");
 const courseColumn = document.querySelector(".course-column");
 const dinListaRuta = document.querySelector(".din-lista-ruta");
+const blockStatus = document.getElementById("block");
+const hpGrundStatus = document.getElementById("hp-grund");
+const hpAvanceradStatus = document.getElementById("hp-avancerad");
+const hpHuvudomradeStatus = document.getElementById("hp-huvudomrade");
+const hpMasterprofilStatus = document.getElementById("hp-masterprofil");
+const hpProjektStatus = document.getElementById("hp-projektkurs");
+const hpExjobbStatus = document.getElementById("hp-exjobb");
+const nivaInputs = document.querySelectorAll(".niva-filter input");
+
 
 const valdaKurser = new Map();
 
@@ -1313,6 +1415,12 @@ const inriktningLabels = {
   EMHF: "Hållbart företagande",
   EMSV: "Systemverktyg för hållbar utveckling",
   EMTE: "Teknik för hållbar utveckling"
+};
+
+const huvudomradePerInriktning = {
+  EMHF: "Industriell ekonomi",
+  EMSV: "Energi- och miljöteknik",
+  EMTE: "Maskinteknik"
 };
 
 const vofInputs = document.querySelectorAll(".vof-filter input");
@@ -1333,11 +1441,28 @@ function matcharVof(kurs, valdaVof) {
   return vof.split("/").some((del) => valdaVof.has(del));
 }
 
-function byggKurserPerTermin(inriktning, valdaVof) {
+function getValdaNiva() {
+  const valda = new Set();
+  nivaInputs.forEach((input) => {
+    if (input.checked) {
+      valda.add(input.value);
+    }
+  });
+  return valda;
+}
+
+function matcharNiva(kurs, valdaNiva) {
+  if (valdaNiva.size === 0) return true;
+  const prefix = kurs.niva ? kurs.niva.charAt(0) : "";
+  return valdaNiva.has(prefix);
+}
+
+function byggKurserPerTermin(inriktning, valdaVof, valdaNiva) {
   const perTermin = new Map();
 
   kurser.forEach((kurs) => {
     if (!matcharVof(kurs, valdaVof)) return;
+    if (!matcharNiva(kurs, valdaNiva)) return;
 
     const term = kurs.termin;
     if (!perTermin.has(term)) {
@@ -1384,6 +1509,7 @@ function byggTabell(kurserForTermin) {
         <th>Niva</th>
         <th>Block</th>
         <th>VOF</th>
+        <th>Info</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -1405,6 +1531,7 @@ function byggTabell(kurserForTermin) {
     tr.dataset.period = period;
     tr.dataset.vof = vof;
     tr.dataset.key = key;
+    tr.dataset.inriktning = (kurs.inriktning || []).join(",");
 
     tr.innerHTML = `
       <td>${kurs.kod}</td>
@@ -1413,6 +1540,7 @@ function byggTabell(kurserForTermin) {
       <td>${kurs.niva}</td>
       <td>${kurs.block}</td>
       <td>${vof}</td>
+      <td><a class="kurs-info-link" href="https://studieinfo.liu.se/kurs/${kurs.kod}" target="_blank" rel="noopener noreferrer" title="Öppna kursinfo">${"i"}</a></td>
     `;
 
     tbody.appendChild(tr);
@@ -1468,7 +1596,12 @@ function renderKurser() {
   }
 
   const valdaVof = getValdaVof();
-  const kurserPerTermin = byggKurserPerTermin(valdInriktning, valdaVof);
+  const valdaNiva = getValdaNiva();
+  const kurserPerTermin = byggKurserPerTermin(
+    valdInriktning,
+    valdaVof,
+    valdaNiva
+  );
   const terminer = Array.from(kurserPerTermin.keys()).sort((a, b) => a - b);
 
   terminer.forEach((termin) => {
@@ -1518,7 +1651,7 @@ function renderKurser() {
     header.addEventListener("click", () => {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!expanded));
-      toggle.textContent = expanded ? "+" : "−";
+      toggle.textContent = expanded ? "+" : "-";
       content.hidden = expanded;
     });
 
@@ -1541,11 +1674,23 @@ function uppdateraHint() {
 // ======= KURSVAL / KLICKHANTERING =======
 if (courseContainer) {
   courseContainer.addEventListener("click", (event) => {
+    const infoLink = event.target.closest(".kurs-info-link");
+    if (infoLink) {
+      // Öppna länken utan att toggla kursval
+      return;
+    }
     const row = event.target.closest("tr");
     if (!row || !row.dataset.kod) return;
 
     const key = row.dataset.key;
     if (valdaKurser.has(key)) {
+      const aktuell = valdaKurser.get(key);
+      if (arObligatorisk(aktuell)) {
+        const villTaBort = window.confirm(
+          "Den här kursen är markerad som obligatorisk. Vill du verkligen ta bort den?"
+        );
+        if (!villTaBort) return;
+      }
       valdaKurser.delete(key);
       row.classList.remove("vald");
     } else {
@@ -1558,13 +1703,19 @@ if (courseContainer) {
         block: row.dataset.block,
         vof: row.dataset.vof,
         termin: row.dataset.termin,
-        period: row.dataset.period
+        period: row.dataset.period,
+        inriktning: row.dataset.inriktning
       });
       row.classList.add("vald");
     }
 
     renderDinLista();
   });
+}
+
+function arObligatorisk(kurs) {
+  const vof = kurs && kurs.vof ? kurs.vof : "";
+  return vof.split("/").includes("O");
 }
 
 function autoSelectObligatoriska(inriktning) {
@@ -1593,7 +1744,8 @@ function autoSelectObligatoriska(inriktning) {
       block: kurs.block,
       vof: normaliseraVof(kurs),
       termin: kurs.termin,
-      period: kurs.period === null ? "" : String(kurs.period)
+      period: kurs.period === null ? "" : String(kurs.period),
+      inriktning: kurs.inriktning
     });
 
     const row = document.querySelector(`tr[data-key="${key}"]`);
@@ -1615,6 +1767,12 @@ if (inriktningSelect) {
   });
 }
 vofInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    renderKurser();
+  });
+});
+
+nivaInputs.forEach((input) => {
   input.addEventListener("change", () => {
     renderKurser();
   });
@@ -1651,6 +1809,9 @@ function renderDinLista() {
     grupper.get(key).kurser.push(kurs);
   });
 
+  const blockConflicts = getBlockConflicts();
+  const conflictKeys = new Set(blockConflicts.keys());
+
   const groupList = Array.from(grupper.entries()).sort((a, b) => {
     const ga = a[1];
     const gb = b[1];
@@ -1675,6 +1836,11 @@ function renderDinLista() {
       .sort((a, b) => a.namn.localeCompare(b.namn))
       .forEach((kurs) => {
       const li = document.createElement("li");
+      const blockKey = `${kurs.termin || "?"}|${kurs.period || "?"}|${kurs.block}`;
+      if (conflictKeys.has(blockKey)) {
+        li.classList.add("block-conflict");
+        li.title = "Schemakrock: samma block i denna termin/period";
+      }
       if (expanded) {
         li.innerHTML = `<strong>${kurs.kod}</strong> ${kurs.namn} <span class="din-lista-detalj">(${kurs.hp} hp, ${kurs.niva}, Block ${kurs.block}, ${kurs.vof})</span>`;
       } else {
@@ -1687,10 +1853,230 @@ function renderDinLista() {
     dinLista.appendChild(wrapper);
   });
 
+  uppdateraBlockStatus(blockConflicts);
+  uppdateraHpStatus();
   uppdateraHint();
+}
+
+function getBlockConflicts() {
+  const counts = new Map();
+
+  valdaKurser.forEach((kurs) => {
+    const block = kurs.block;
+    if (!block || !["1", "2", "3", "4"].includes(block)) return;
+
+    const termin = kurs.termin || "?";
+    const period = kurs.period || "?";
+    const key = `${termin}|${period}|${block}`;
+    if (!counts.has(key)) {
+      counts.set(key, []);
+    }
+    counts.get(key).push(kurs);
+  });
+
+  const conflicts = new Map();
+  counts.forEach((lista, key) => {
+    if (lista.length > 1) {
+      conflicts.set(key, lista);
+    }
+  });
+
+  return conflicts;
+}
+
+function markeraBlockKonflikter(conflictKeys) {
+  const rows = document.querySelectorAll('tr[data-key]');
+  rows.forEach((row) => {
+    const termin = row.dataset.termin || "?";
+    const period = row.dataset.period || "?";
+    const block = row.dataset.block;
+    const key = `${termin}|${period}|${block}`;
+    if (conflictKeys.has(key)) {
+      row.classList.add("block-conflict");
+      row.title = "Schemakrock: samma block i denna termin/period";
+    } else {
+      row.classList.remove("block-conflict");
+      row.removeAttribute("title");
+    }
+  });
+}
+
+function uppdateraBlockStatus(blockConflicts) {
+  if (!blockStatus) return;
+  const konflikt = blockConflicts && blockConflicts.size > 0;
+  blockStatus.textContent = konflikt ? "EJ OK" : "OK";
+  blockStatus.classList.toggle("status-error", konflikt);
+  blockStatus.classList.toggle("status-ok", !konflikt);
+  if (konflikt) {
+    const delar = [];
+    blockConflicts.forEach((lista, key) => {
+      const [termin, period, block] = key.split("|");
+      const namn = lista.map((k) => `${k.kod}`).join(", ");
+      delar.push(`T${termin}, P${period}, block ${block}: ${namn}`);
+    });
+    blockStatus.title = `Schemakrock: ${delar.join(" | ")}`;
+  } else {
+    blockStatus.removeAttribute("title");
+  }
+
+  const conflictKeys = new Set(blockConflicts ? blockConflicts.keys() : []);
+  markeraBlockKonflikter(conflictKeys);
+}
+
+function parseHp(varde) {
+  const num = Number(varde);
+  return Number.isFinite(num) ? num : 0;
+}
+
+function arAvancerad(kurs) {
+  return kurs.niva && kurs.niva.startsWith("A");
+}
+
+function arMasterprofil(kurs, valdInriktning) {
+  if (!valdInriktning) return false;
+  const inr = kurs.inriktning;
+  if (!inr) return false;
+  if (Array.isArray(inr)) {
+    return inr.includes(valdInriktning);
+  }
+  return String(inr).split(",").includes(valdInriktning);
+}
+
+function arProjektkurs(kurs) {
+  return kurs.namn && kurs.namn.startsWith("Projektkurs avancerad");
+}
+
+function arExjobb(kurs) {
+  return kurs.kod === "TQXX33";
+}
+
+function arIValtHuvudomrade(kurs, valdInriktning) {
+  if (!valdInriktning) return false;
+  const target = huvudomradePerInriktning[valdInriktning];
+  if (!target) return false;
+  const huv = (huvudomradeMap[kurs.kod] || "").toLowerCase();
+  return huv.includes(target.toLowerCase());
+}
+
+function uppdateraHpStatus() {
+  if (!hpGrundStatus || !hpAvanceradStatus) return;
+
+  const valdInriktning = inriktningSelect ? inriktningSelect.value : "";
+  let grundHp = 0;
+  let avanceradHp = 0;
+  let avanceradHuvudomradeHp = 0;
+  let masterprofilHp = 0;
+  let harProjekt = false;
+  let harExjobb = false;
+  let exjobbRedanRaknats = false;
+
+  valdaKurser.forEach((kurs) => {
+    if (arExjobb(kurs)) {
+      harExjobb = true;
+      if (exjobbRedanRaknats) {
+        return; // räkna bara 30 hp en gång även om exjobb finns i två perioder
+      }
+      exjobbRedanRaknats = true;
+    }
+
+    const hp = parseHp(kurs.hp);
+    const arAdv = arAvancerad(kurs);
+    if (arAdv) {
+      avanceradHp += hp;
+      if (arIValtHuvudomrade(kurs, valdInriktning)) {
+        avanceradHuvudomradeHp += hp;
+      }
+    } else {
+      grundHp += hp;
+    }
+
+    if (arMasterprofil(kurs, valdInriktning)) {
+      masterprofilHp += hp;
+      if (arProjektkurs(kurs)) harProjekt = true;
+    }
+
+  });
+
+  const har90Avancerad = avanceradHp >= 90;
+  const har30Huvudomrade = avanceradHuvudomradeHp >= 30;
+  const har60Masterprofil = masterprofilHp >= 60;
+  const harProjektKrav = !!valdInriktning && harProjekt;
+  const harExjobbKrav = harExjobb;
+
+  hpGrundStatus.textContent = `${grundHp} hp`;
+  hpGrundStatus.classList.remove("status-ok", "status-error");
+
+  hpAvanceradStatus.textContent = har90Avancerad
+    ? `OK (${avanceradHp}/90 hp)`
+    : `EJ OK (${avanceradHp}/90 hp)`;
+  hpAvanceradStatus.classList.toggle("status-ok", har90Avancerad);
+  hpAvanceradStatus.classList.toggle("status-error", !har90Avancerad);
+
+  if (hpHuvudomradeStatus) {
+    const text = !valdInriktning
+      ? "Välj inriktning"
+      : har30Huvudomrade
+      ? `OK (${avanceradHuvudomradeHp}/30 hp)`
+      : `EJ OK (${avanceradHuvudomradeHp}/30 hp)`;
+    hpHuvudomradeStatus.textContent = text;
+    hpHuvudomradeStatus.classList.toggle("status-ok", har30Huvudomrade && !!valdInriktning);
+    hpHuvudomradeStatus.classList.toggle("status-error", !har30Huvudomrade && !!valdInriktning);
+  }
+
+  if (hpMasterprofilStatus) {
+    const text = !valdInriktning
+      ? "Välj inriktning"
+      : har60Masterprofil
+      ? `OK (${masterprofilHp}/60 hp)`
+      : `EJ OK (${masterprofilHp}/60 hp)`;
+    hpMasterprofilStatus.textContent = text;
+    hpMasterprofilStatus.classList.toggle("status-ok", har60Masterprofil && !!valdInriktning);
+    hpMasterprofilStatus.classList.toggle("status-error", !har60Masterprofil && !!valdInriktning);
+  }
+
+  if (hpProjektStatus) {
+    const text = !valdInriktning
+      ? "Välj inriktning"
+      : harProjektKrav
+      ? "OK"
+      : "EJ OK";
+    hpProjektStatus.textContent = text;
+    hpProjektStatus.classList.toggle("status-ok", harProjektKrav && !!valdInriktning);
+    hpProjektStatus.classList.toggle("status-error", !harProjektKrav && !!valdInriktning);
+  }
+
+  if (hpExjobbStatus) {
+    hpExjobbStatus.textContent = harExjobbKrav ? "OK" : "EJ OK";
+    hpExjobbStatus.classList.toggle("status-ok", harExjobbKrav);
+    hpExjobbStatus.classList.toggle("status-error", !harExjobbKrav);
+  }
+}
+
+function buildPopupContent(kurs) {
+  return "";
+}
+
+function showKursPopup(row, clientX, clientY) {
+  return;
+}
+
+function hideKursPopup() {
+  return;
 }
 
 renderKurser();
 renderDinLista();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
