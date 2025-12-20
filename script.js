@@ -1,4 +1,4 @@
-﻿// ======= KURSDATA =======
+﻿﻿// ======= KURSDATA =======
 const kurser = [
   {
     kod: "TDDE18",
@@ -1396,11 +1396,21 @@ const dinListaRuta = document.querySelector(".din-lista-ruta");
 const blockStatus = document.getElementById("block");
 const hpGrundStatus = document.getElementById("hp-grund");
 const hpAvanceradStatus = document.getElementById("hp-avancerad");
+const hpPerTerminStatus = document.getElementById("hp-termin");
 const hpHuvudomradeStatus = document.getElementById("hp-huvudomrade");
 const hpMasterprofilStatus = document.getElementById("hp-masterprofil");
 const hpProjektStatus = document.getElementById("hp-projektkurs");
 const hpExjobbStatus = document.getElementById("hp-exjobb");
 const nivaInputs = document.querySelectorAll(".niva-filter input");
+
+// Hovertexter: ändra dessa strängar för att styra vad som visas vid hover.
+const customTooltips = {
+  hpGrund: "Summerade grundnivåpoäng i din lista",
+  hpAvancerad: "Avancerade HP poäng, räknat från termin 7, 8 och 9",
+  hpPerTermin: "Maximalt 30 HP per termin kan läggas till i din lista",
+  hpHuvudomrade: "Avancerade HP poäng inom valt huvudområde",
+  block: "Kontrollerar schemakrockar i din lista",
+};
 
 
 const valdaKurser = new Map();
@@ -1901,9 +1911,15 @@ function markeraBlockKonflikter(conflictKeys) {
   });
 }
 
+function buildStatusTitle(base, extra) {
+  if (base && extra) return `${base} — ${extra}`;
+  return base || extra || "";
+}
+
 function uppdateraBlockStatus(blockConflicts) {
   if (!blockStatus) return;
   const konflikt = blockConflicts && blockConflicts.size > 0;
+  const baseTitle = customTooltips.block || "";
   blockStatus.textContent = konflikt ? "EJ OK" : "OK";
   blockStatus.classList.toggle("status-error", konflikt);
   blockStatus.classList.toggle("status-ok", !konflikt);
@@ -1914,9 +1930,10 @@ function uppdateraBlockStatus(blockConflicts) {
       const namn = lista.map((k) => `${k.kod}`).join(", ");
       delar.push(`T${termin}, P${period}, block ${block}: ${namn}`);
     });
-    blockStatus.title = `Schemakrock: ${delar.join(" | ")}`;
+    const conflictText = `Schemakrock: ${delar.join(" | ")}`;
+    blockStatus.title = buildStatusTitle(baseTitle, conflictText);
   } else {
-    blockStatus.removeAttribute("title");
+    blockStatus.title = baseTitle;
   }
 
   const conflictKeys = new Set(blockConflicts ? blockConflicts.keys() : []);
@@ -1930,6 +1947,11 @@ function parseHp(varde) {
 
 function arAvancerad(kurs) {
   return kurs.niva && kurs.niva.startsWith("A");
+}
+
+function arAvanceradTermin(kurs) {
+  const t = Number(kurs.termin);
+  return Number.isFinite(t) && t >= 7 && t <= 9;
 }
 
 function arMasterprofil(kurs, valdInriktning) {
@@ -1950,6 +1972,29 @@ function arExjobb(kurs) {
   return kurs.kod === "TQXX33";
 }
 
+function getHpPerTermin() {
+  const perTermin = new Map();
+  valdaKurser.forEach((kurs) => {
+    const termin = kurs.termin || "?";
+    const terminNum = Number(termin);
+    if (Number.isFinite(terminNum) && terminNum === 10) return;
+    const hp = parseHp(kurs.hp);
+    perTermin.set(termin, (perTermin.get(termin) || 0) + hp);
+  });
+  return perTermin;
+}
+
+function getKurserPerPeriod() {
+  const perPeriod = new Map();
+  valdaKurser.forEach((kurs) => {
+    const termin = kurs.termin || "?";
+    const period = kurs.period || "?";
+    const key = `${termin}|${period}`;
+    perPeriod.set(key, (perPeriod.get(key) || 0) + 1);
+  });
+  return perPeriod;
+}
+
 function arIValtHuvudomrade(kurs, valdInriktning) {
   if (!valdInriktning) return false;
   const target = huvudomradePerInriktning[valdInriktning];
@@ -1962,6 +2007,18 @@ function uppdateraHpStatus() {
   if (!hpGrundStatus || !hpAvanceradStatus) return;
 
   const valdInriktning = inriktningSelect ? inriktningSelect.value : "";
+  if (hpGrundStatus) {
+    hpGrundStatus.title = customTooltips.hpGrund || "";
+  }
+  if (hpAvanceradStatus) {
+    hpAvanceradStatus.title = customTooltips.hpAvancerad || "";
+  }
+  if (hpPerTerminStatus) {
+    hpPerTerminStatus.title = customTooltips.hpPerTermin || "";
+  }
+  if (hpHuvudomradeStatus) {
+    hpHuvudomradeStatus.title = customTooltips.hpHuvudomrade || "";
+  }
   let grundHp = 0;
   let avanceradHp = 0;
   let avanceradHuvudomradeHp = 0;
@@ -1981,12 +2038,14 @@ function uppdateraHpStatus() {
 
     const hp = parseHp(kurs.hp);
     const arAdv = arAvancerad(kurs);
-    if (arAdv) {
+    const arAdvTermin = arAdv && arAvanceradTermin(kurs);
+    if (arAdvTermin) {
       avanceradHp += hp;
-      if (arIValtHuvudomrade(kurs, valdInriktning)) {
-        avanceradHuvudomradeHp += hp;
-      }
-    } else {
+    }
+    if (arAdv && arIValtHuvudomrade(kurs, valdInriktning)) {
+      avanceradHuvudomradeHp += hp;
+    }
+    if (!arAdv) {
       grundHp += hp;
     }
 
@@ -2002,6 +2061,23 @@ function uppdateraHpStatus() {
   const har60Masterprofil = masterprofilHp >= 60;
   const harProjektKrav = !!valdInriktning && harProjekt;
   const harExjobbKrav = harExjobb;
+  const hpPerTerminMap = getHpPerTermin();
+  const kurserPerPeriodMap = getKurserPerPeriod();
+  const hpPerTerminOver = [];
+  const kurserPerPeriodOver = [];
+  hpPerTerminMap.forEach((sum, term) => {
+    if (sum > 30) {
+      hpPerTerminOver.push(`T${term}: ${sum} hp`);
+    }
+  });
+  kurserPerPeriodMap.forEach((count, key) => {
+    if (count > 3) {
+      const [t, p] = key.split("|");
+      kurserPerPeriodOver.push(`T${t} P${p}: ${count} kurser`);
+    }
+  });
+  const harHpPerTerminOk =
+    hpPerTerminOver.length === 0 && kurserPerPeriodOver.length === 0;
 
   hpGrundStatus.textContent = `${grundHp} hp`;
   hpGrundStatus.classList.remove("status-ok", "status-error");
@@ -2050,6 +2126,22 @@ function uppdateraHpStatus() {
     hpExjobbStatus.classList.toggle("status-ok", harExjobbKrav);
     hpExjobbStatus.classList.toggle("status-error", !harExjobbKrav);
   }
+
+  if (hpPerTerminStatus) {
+    const baseTitle = customTooltips.hpPerTermin || "";
+    const delar = [];
+    if (hpPerTerminOver.length > 0) {
+      delar.push(`Överskrider 30 hp: ${hpPerTerminOver.join(" | ")}`);
+    }
+    if (kurserPerPeriodOver.length > 0) {
+      delar.push(`Fler än 3 kurser: ${kurserPerPeriodOver.join(" | ")}`);
+    }
+    const extra = delar.join(" — ");
+    hpPerTerminStatus.title = buildStatusTitle(baseTitle, extra);
+    hpPerTerminStatus.textContent = harHpPerTerminOk ? "OK" : "EJ OK";
+    hpPerTerminStatus.classList.toggle("status-ok", harHpPerTerminOk);
+    hpPerTerminStatus.classList.toggle("status-error", !harHpPerTerminOk);
+  }
 }
 
 function buildPopupContent(kurs) {
@@ -2066,17 +2158,3 @@ function hideKursPopup() {
 
 renderKurser();
 renderDinLista();
-
-
-
-
-
-
-
-
-
-
-
-
-
-

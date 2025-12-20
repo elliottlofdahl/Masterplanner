@@ -1,0 +1,29 @@
+Kravlista:
+
+- Kurslista och filtrering:
+  - Inriktning måste väljas för att visa kurser; annars visas hint om att välja inriktning.
+  - Filtrering sker på VOF (normaliserad: "projektkurs avancerad" behandlas som O/V; övriga O/V blir O) och nivå (G/A).
+  - Kurser grupperas per termin med separata avsnitt för gemensamma och inriktningsspecifika; inom termin grupperas per period.
+
+- Kursval och obligatoriska:
+  - Klick på en kursrad togglar val (info-länken ska inte toggla); obligatorisk kurs kräver bekräftelse vid borttagning.
+  - Vid byte av inriktning rensas val, kurser renderas om och obligatoriska (VOF innehåller O, exklusive projektkurs avancerad med O/V) auto-väljs för inriktningen eller gemensamt.
+
+- Schemakrock/block:
+  - Samma blocknummer i samma termin och period får inte kombineras; status visar EJ OK och tabellrader/listobjekt markeras som krock.
+  - Tooltip/listtext ska ange vilka kurser som krockar (T, P, block och kurskoder).
+
+- HP-krav:
+  - Avancerad nivå totalt: minst 90 hp för OK-status.
+  - Avancerad nivå räknas endast för terminer 7–9; exjobb i termin 10 ska inte ingå i avancerad-summan.
+  - HP huvudområde: endast avancerade kurser räknas om de matchar huvudområdet för vald inriktning via `huvudomradePerInriktning` + `huvudomradeMap`; OK om minst 30 hp, annars EJ OK; "Välj inriktning" när ingen inriktning är vald; status-label använder `status-ok`/`status-error`.
+  - Masterprofil: minst 60 hp inom vald inriktning för OK; kopplat till vald inriktning.
+  - Projektkurs: minst en "Projektkurs avancerad" inom vald inriktning krävs när inriktning är vald.
+  - Exjobb: minst ett exjobb (TQXX33) krävs; exjobb hp räknas bara en gång även om kursen finns i flera perioder.
+  - Grundnivå: hp summeras och visas utan OK/EJ OK-klassning.
+  - HP/termin: max 30 hp per termin totalt (grund + avancerad); termin 10 undantas från denna beräkning (exjobb över två perioder). Status visar EJ OK och listar terminer som överskrider gränsen; varning även om fler än 3 kurser i samma termin/period.
+
+- Din lista/visning:
+  - Valda kurser grupperas per termin och period, sorterat stigande; blockkrockar markeras.
+  - Expand/minska i sidokolumn styr om detaljer (kod, hp, nivå, block, VOF) visas eller bara namn.
+  - Hint visas när listan är tom.
